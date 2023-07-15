@@ -2,10 +2,15 @@ package com.base.groceryapp_composeui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +33,26 @@ fun MainHome(){
         TopSection()
         Spacer(modifier = Modifier.height(35.dp))
         GreetingSection()
+        Spacer(modifier = Modifier.height(35.dp))
+        SetupCategory()
+        Spacer(modifier = Modifier.height(20.dp))
+        Category(
+            categoryitem = listOf(
+                CategoryItems(
+                    image = painterResource(R.drawable.vegetables),
+                    nameofimage = "Vegetables"
+                ),
+
+                CategoryItems(
+                    image = painterResource(R.drawable.fruits),
+                    nameofimage = "Fruits"
+                ),
+                CategoryItems(
+                    image = painterResource(R.drawable.meat),
+                    nameofimage = "Meat"
+                )
+            )
+        )
     }
 }
 
@@ -96,3 +121,90 @@ fun GreetingSection(
         )
     }
 }
+
+@Composable
+fun SetupCategory(
+    modifier: Modifier=Modifier
+){
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth()
+    ){
+        Text(
+            text = "Categories",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            color = Color.White,
+            modifier= modifier.padding(start=17.dp)
+        )
+        Icon(
+            imageVector = Icons.Default.ArrowForward,
+            contentDescription = "Arrow",
+            tint = Color.White,
+            modifier = modifier.size(35.dp)
+                .padding(end=10.dp)
+        )
+    }
+}
+
+
+@Composable
+fun Category(
+ categoryitem:List<CategoryItems>,
+ modifier: Modifier=Modifier
+){
+  LazyRow {
+      items(categoryitem.size){
+          Box(
+              contentAlignment = Alignment.Center,
+              modifier = modifier.width(160.dp)
+                  .height(250.dp)
+                  .padding(start = 20.dp,top=20.dp, bottom = 50.dp)
+                  .clip(RoundedCornerShape(15.dp))
+                  .background(Color.White)
+
+          ){
+              Column(
+                  verticalArrangement = Arrangement.Center
+              ) {
+                  CategoryItems(
+                      categoryitem[it]
+                  )
+              }
+          }
+      }
+  }
+}
+
+@Composable
+fun CategoryItems(
+    categoryItems: CategoryItems,
+    modifier: Modifier=Modifier
+){
+    Image(
+        painter = categoryItems.image,
+        contentDescription = categoryItems.nameofimage,
+        modifier=modifier.size(130.dp)
+            .padding(20.dp)
+    )
+
+    Spacer(modifier=modifier.height(8.dp))
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier.width(200.dp)
+            .height(80.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.Cyan)
+    ){
+        Text(
+            text = categoryItems.nameofimage,
+            fontWeight = FontWeight.Bold,
+            color=Color.Black,
+            fontSize = 15.sp
+
+        )
+    }
+}
+
