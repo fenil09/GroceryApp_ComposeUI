@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,6 +52,35 @@ fun MainHome(){
                     image = painterResource(R.drawable.meat),
                     nameofimage = "Meat"
                 )
+            )
+        )
+        SetupOrders()
+        RenderOrderItems(
+            Orders = listOf(
+                OrderItems(
+                    image = painterResource(R.drawable.vegetables),
+                    itemname = "Vegetables",
+                    dataofpurchase = "20 Jun, 2022",
+                    price = "$50.65",
+                    numberofitems = "6 Items"
+                ),
+
+                OrderItems(
+                    image = painterResource(R.drawable.fruits),
+                    itemname = "Fruits",
+                    dataofpurchase = "21 Jun, 2022",
+                    price = "$60.74",
+                    numberofitems = "7 Items"
+                ),
+
+                OrderItems(
+                    image = painterResource(R.drawable.meat),
+                    itemname = "Meat",
+                    dataofpurchase = "22 Jun, 2022",
+                    price = "$100.74",
+                    numberofitems = "3 Items"
+                )
+
             )
         )
     }
@@ -208,3 +238,139 @@ fun CategoryItems(
     }
 }
 
+
+@Composable
+fun SetupOrders(
+    modifier: Modifier=Modifier
+){
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth()
+    ){
+        Text(
+            text = "My Orders",
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 20.sp,
+            color=Color.White,
+            modifier=modifier.padding(start=17.dp)
+        )
+
+        Icon(
+            imageVector = Icons.Default.ArrowForward,
+            contentDescription = "Arrow",
+            tint = Color.White,
+            modifier = modifier.size(35.dp)
+                .padding(end=10.dp)
+        )
+
+
+    }
+}
+
+@Composable
+fun RenderOrderItems(
+    Orders:List<OrderItems>
+){
+
+    LazyColumn (
+        verticalArrangement = Arrangement.spacedBy(25.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(20.dp)
+    ){
+        items(Orders.size){
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ){
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    RowOrders(
+                        orders = Orders[it]
+                    )
+
+                }
+                Spacer(modifier = Modifier.width(150.dp))
+                ColumnOrders(
+                    orders = Orders[it]
+                )
+            }
+
+        }
+    }
+
+}
+
+
+@Composable
+fun RowOrders(
+    modifier: Modifier=Modifier,
+    orders:OrderItems
+){
+    Image(
+        painter = orders.image,
+        contentDescription = orders.itemname,
+        contentScale = ContentScale.Crop,
+        modifier=modifier.size(50.dp)
+            .border(
+                width = 1.dp,
+                color=Color.White,
+                shape = CircleShape
+            )
+            .clip(CircleShape)
+    )
+    Spacer(modifier=modifier.width(13.dp))
+    Column (
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(
+            text = orders.itemname,
+            fontWeight = FontWeight.Bold,
+            fontSize = 15.sp,
+            color=Color.White,
+            modifier=modifier.align(Alignment.Start)
+                .padding(start=3.dp)
+        )
+        Spacer(modifier=modifier.height(4.dp))
+        Text(
+            text = orders.dataofpurchase,
+            fontWeight = FontWeight.Light,
+            color=Color.White,
+            fontSize = 15.sp,
+            modifier = modifier.padding(start=3.dp)
+                .align(Alignment.Start)
+        )
+    }
+
+}
+
+@Composable
+fun ColumnOrders(
+    modifier: Modifier=Modifier,
+    orders:OrderItems
+){
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = orders.price,
+            fontWeight = FontWeight.Bold,
+            fontSize = 15.sp,
+            color=Color.White
+        )
+        Spacer(modifier=modifier.height(4.dp))
+
+        Text(
+            text = orders.numberofitems,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Light,
+            color=Color.White,
+            modifier = modifier.padding(end = 3.dp)
+        )
+    }
+}
