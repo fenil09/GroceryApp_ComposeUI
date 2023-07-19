@@ -123,7 +123,7 @@ fun TopSection(
             painter = painterResource(R.drawable.profile),
             contentDescription = "Profile",
             contentScale = ContentScale.Crop,
-            modifier=modifier.size(45.dp)
+            modifier=modifier.size(40.dp)
                 .clip(CircleShape)
 
         )

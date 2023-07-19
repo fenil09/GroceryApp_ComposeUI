@@ -8,10 +8,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,17 +53,23 @@ fun MainScreen(
                     image = painterResource(R.drawable.fruits),
                     cartitemname = "Fruits",
                     price = "$40.56",
-                    countofitem = "20 Items"
+                    countofitem = "7 Items"
                 ),
                 CartItems(
                     image = painterResource(R.drawable.meat),
                     cartitemname = "Meat",
-                    price = "$120.56",
+                    price = "$50.56",
                     countofitem = "3 Items"
                 )
 
             )
         )
+        Spacer(modifier=modifier.height(55.dp))
+        Separator()
+        Spacer(modifier=modifier.height(40.dp))
+        QuestionBox()
+        Spacer(modifier=modifier.height(80.dp))
+        PayBox()
     }
 }
 
@@ -204,3 +213,128 @@ fun RowEdit(
     }
 }
 
+@Composable
+fun Separator(
+    modifier: Modifier=Modifier
+){
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ){
+
+        Box(
+            modifier=modifier.height(1.dp)
+                .width(158.dp)
+                .background(Color.White)
+        ){
+
+        }
+
+        Spacer(modifier=modifier.width(15.dp))
+        Text(
+            text = "or",
+            color=Color.White,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier.padding(bottom = 5.dp)
+        )
+        Spacer(modifier=modifier.width(15.dp))
+
+        Box(
+            modifier=modifier.height(1.dp)
+                .width(158.dp)
+                .background(Color.White)
+        ){
+
+        }
+    }
+}
+
+@Composable
+fun QuestionBox(
+    modifier: Modifier=Modifier
+){
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.width(370.dp)
+            .height(100.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(colorResource(R.color.Alabaster))
+    ){
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Text(
+                text = "Repeat Previous Orders...",
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                color=Color.Black
+            )
+            Spacer(modifier=modifier.height(15.dp))
+            Text(
+                text = "Order Now",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.Black
+            )
+        }
+    }
+}
+
+@Composable
+fun PayBox(
+    modifier: Modifier=Modifier
+){
+    Box(
+        modifier=modifier.width(370.dp)
+            .height(95.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.White)
+    ){
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier.padding(15.dp)
+        ) {
+            Text(
+                text = "Total Amount",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color=Color.Black,
+                modifier=modifier.align(Alignment.Start)
+            )
+            Spacer(modifier=modifier.height(5.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "$132.02",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color=Color.Black
+                )
+                Spacer(modifier=modifier.width(150.dp))
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "Pay Now",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color=Color.Black
+                    )
+                    Spacer(modifier=modifier.width(3.dp))
+                    Icon(
+                        imageVector = Icons.Default.ArrowForward,
+                        contentDescription = "ArrowForward",
+                        tint = Color.Black,
+                        modifier = modifier.size(25.dp)
+                    )
+                }
+            }
+        }
+    }
+}
