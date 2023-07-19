@@ -12,6 +12,11 @@
             android:theme="@style/Theme.GroceryApp_ComposeUI"
             tools:targetApi="31">
         <activity
+                android:name=".Cart"
+                android:exported="false"
+                android:label="@string/title_activity_cart"
+                android:theme="@style/Theme.GroceryApp_ComposeUI"/>
+        <activity
                 android:name=".Home"
                 android:exported="false"
                 android:label="@string/title_activity_home"

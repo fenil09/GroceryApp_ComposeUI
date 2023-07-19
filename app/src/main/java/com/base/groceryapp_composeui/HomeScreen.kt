@@ -1,8 +1,10 @@
 package com.base.groceryapp_composeui
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -156,6 +159,7 @@ fun GreetingSection(
 fun SetupCategory(
     modifier: Modifier=Modifier
 ){
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -174,6 +178,7 @@ fun SetupCategory(
             tint = Color.White,
             modifier = modifier.size(35.dp)
                 .padding(end=10.dp)
+
         )
     }
 }
@@ -243,6 +248,7 @@ fun CategoryItems(
 fun SetupOrders(
     modifier: Modifier=Modifier
 ){
+    val context= LocalContext.current
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -262,6 +268,10 @@ fun SetupOrders(
             tint = Color.White,
             modifier = modifier.size(35.dp)
                 .padding(end=10.dp)
+                .clickable {
+                    val intent= Intent(context,Cart::class.java)
+                    context.startActivity(intent)
+                }
         )
 
 
